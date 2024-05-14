@@ -71,7 +71,7 @@ const Table = () => {
             products.map((item) => (
               <tr key={item.id} className="bg-white border-b">
                 <td className="px-6 py-4">{item.id}</td>
-                <th className="py-2">
+                <th className="py-2 cursor-pointer">
                   <img
                     onClick={() => handleClick(item.attachmentId)}
                     className="rounded-full w-20 h-20"

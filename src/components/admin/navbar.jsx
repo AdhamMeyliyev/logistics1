@@ -39,7 +39,7 @@ const Navbar = () => {
 
   useEffect(() => {
     getUsers();
-  }, [user]);
+  }, []);
 
   const openProfileModal = () => setIsOpen(!isOpen);
   return (
