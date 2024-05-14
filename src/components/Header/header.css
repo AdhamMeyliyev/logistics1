@@ -1,0 +1,6 @@
+.header a:hover {
+  color: red;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 0.01rem solid red;
+  border-radius: 0.5rem /* 8px */;
+}
