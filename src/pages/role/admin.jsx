@@ -6,13 +6,6 @@ import Table from "../../components/admin/table";
 import ProductsService from "../../services/products";
 
 const Admin = () => {
-  async function getUsers() {
-    const data = await ProductsService.getUser();
-    console.log(data);
-  }
-
-  getUsers();
-
   return (
     <div className="w-full bg-fixed bg-[url('http://gsrlogistic.uz/static/media/back.e41e920c5b0118532b6f.jpg')] h-auto py-10">
       <Navbar />
