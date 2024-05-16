@@ -3,7 +3,6 @@ import Navbar from "../../components/admin/navbar";
 import { Dashboard } from "../Dashboard";
 import { StatisticDashboard } from "../Dashboard/statstic-dashboard";
 import Table from "../../components/admin/table";
-import ProductsService from "../../services/products";
 
 const Admin = () => {
   return (

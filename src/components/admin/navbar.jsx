@@ -32,12 +32,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // State for the profile modal
   const [user, setUser] = useState([]);
 
-  const getUsers = async () => {
-    const data = await Modals.getUser();
-    setUser(data.data.data.body);
-  };
-
   useEffect(() => {
+    const getUsers = async () => {
+      const data = await Modals.getUser();
+      setUser(data.data.data.body);
+    };
     getUsers();
   }, []);
 

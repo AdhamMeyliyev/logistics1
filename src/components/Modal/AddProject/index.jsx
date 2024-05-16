@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const AddProject = () => {
-
+const AddProject = ({ addModalProject }) => {
   return (
     <>
       <Add_Project>
@@ -106,7 +105,10 @@ const AddProject = () => {
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     ></textarea>
                     <div class=" flex justify-between">
-                      <button class="inline-flex justify-center w-[45%] rounded-md shadow-sm py-2 bg-gray-500 text-sm font-medium text-white">
+                      <button
+                        onClick={addModalProject}
+                        class="inline-flex justify-center w-[45%] rounded-md shadow-sm py-2 bg-gray-500 text-sm font-medium text-white"
+                      >
                         Close
                       </button>
                       <button

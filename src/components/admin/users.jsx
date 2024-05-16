@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import User from "../../services/users";
+import UserEditModal from "../Modal/UserProfileEditModal";
 
 const Users = () => {
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(false);
+
+  const toggleFunc = () => setToggle(!toggle);
 
   const getUserData = async () => {
     const data = await User.getUsers();
-    console.log(data.data.data.body.object);
     setData(data.data.data.body.object);
   };
 
@@ -18,6 +21,7 @@ const Users = () => {
   return (
     <div className="w-full bg-fixed bg-[url('http://gsrlogistic.uz/static/media/back.e41e920c5b0118532b6f.jpg')] h-screen py-10">
       <Navbar />
+      {toggle && <UserEditModal toggleFunc={toggleFunc} />}
       <div className="mt-[80px] flex">
         <div>
           <div className="flex">
@@ -39,29 +43,34 @@ const Users = () => {
             </button>
           </div>
           <br />
-          <div className="w-[740px] h-[100px] bg-[#cce7f4] ml-[40px] rounded-[8px] flex ">
-            <div>
-              <ul className="flex gap-24 text-[14px] text-[gray] p-2">
-                <li>Id Number</li>
-                <li>Name</li>
-                <li>Phone Number</li>
-                <li>Password</li>
-              </ul>
-              <ul className="flex gap-24 text-[14px] text-gray-500 p-2">
-                {data.map((item) => (
-                  <>
-                    <li>{item.idNumber}</li>
-                    <li>{item.name}</li>
-                    <li>{item.phoneNumber}</li>
-                    <li>{item.password}</li>
-                  </>
-                ))}
-              </ul>
+          {data.map((item, i) => (
+            <div className="w-[740px] h-[100px] bg-[#cce7f4] ml-[40px] rounded-[8px] flex ">
+              <div>
+                <ul className="flex gap-24 text-[14px] text-[gray] p-2">
+                  <li>Id Number</li>
+                  <li>Name</li>
+                  <li>Phone Number</li>
+                  <li>Password</li>
+                </ul>
+                <ul className="text-[14px] text-gray-500 p-2">
+                  <li className="flex gap-24 p-2" key={i}>
+                    <h3>{item.name}</h3>
+                    <p>{item.idNumber}</p>
+                    <p>{item.phoneNumber}</p>
+                    <p>{item.password}</p>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={toggleFunc}
+                className="bg-[blue] text-[white] w-[60px] h-[40px] m-7 ml-[90px] rounded-[6px]"
+              >
+                Edit
+              </button>
             </div>
-            <button className="bg-[blue] text-[white] w-[60px] h-[40px] m-7 ml-[90px] rounded-[6px]">
-              Edit
-            </button>
-          </div>
+          ))}
+          <br />
         </div>
         <div className="w-[800px]">
           <h2 className="ml-[430px] mt-[30px] text-[24px]">New User</h2>

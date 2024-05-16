@@ -1,0 +1,47 @@
+{
+  "buttons": {
+    "add": "Добавить",
+    "download": "Скачать"
+  },
+  "navbar": {
+    "dashboard": "Панель приборов",
+    "project": "Проект",
+    "warehouse": "Склад",
+    "cashier": "Кассир",
+    "users": "Пользователи"
+  },
+  "table": {
+    "username": "имя пользователя",
+    "projectname": "Название проекта",
+    "productname": "Название товара",
+    "date": "Дата",
+    "price": "Цена",
+    "action": "Действие",
+    "calculated": "Расчитано"
+  },
+  "select": {
+    "selectsearch": "Выберите поиск проекта",
+    "startdate": "Дата начала",
+    "enddate": "Дата окончания"
+  },
+  "homepage": {
+    "headercontent": "Мы доставим ваши посылки",
+    "headercontent2": "В любое место!"
+  },
+  "warehouse": {
+    "name": "Имя",
+    "totalcub": "Всего куб",
+    "productcount": "Количество продуктов",
+    "totalweight": "Общий вес",
+    "edit": "Редакт",
+    "delete": "Удалить",
+    "viewmore": "Посмотреть больше",
+    "download": "Скачать",
+    "status": "Статус",
+    "transport": "Транспорт"
+  },
+  "warehousebtn": {
+    "addwarehouse": "Добавить cклад",
+    "p": "Склад"
+  }
+}

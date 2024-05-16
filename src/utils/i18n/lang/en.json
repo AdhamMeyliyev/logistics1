@@ -1,0 +1,47 @@
+{
+  "buttons": {
+    "add": "Add",
+    "download": "Download"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "project": "Project",
+    "warehouse": "Warehouse",
+    "cashier": "Cashier",
+    "users": "Users"
+  },
+  "table": {
+    "username": "User name",
+    "projectname": "Project name",
+    "productname": "Product name",
+    "date": "Date",
+    "price": "Price",
+    "action": "Action",
+    "calculated": "Calculated"
+  },
+  "select": {
+    "selectsearch": "Select project search",
+    "startdate": "Start date",
+    "enddate": "End date"
+  },
+  "homepage": {
+    "headercontent": "We Will Deliver Your ",
+    "headercontent2": "Packages Anywhere!"
+  },
+  "warehouse": {
+    "name": "Name",
+    "totalcub": "Total Kub",
+    "productcount": "Product count",
+    "totalweight": "Total weight",
+    "edit": "Edit",
+    "delete": "Delete",
+    "viewmore": "View more",
+    "download": "Download",
+    "status": "Status",
+    "transport": "Transport"
+  },
+  "warehousebtn": {
+    "addwarehouse": "Add Warehouse",
+    "p": "Warehouse"
+  }
+}
