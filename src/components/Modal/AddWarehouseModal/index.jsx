@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Warehouse from "../../../services/warehouse";
+import { toast } from "react-toastify";
 
 const AddWarehouse = ({ toggleFunc }) => {
+  const [name, setName] = useState("");
+
+  const addWareHouse = async () => {
+    await Warehouse.addWarehouse({ name });
+    toast.success("Warehouse added");
+    toggleFunc();
+  };
+
   return (
     <div>
       <Add_Warehouse>
@@ -23,6 +33,8 @@ const AddWarehouse = ({ toggleFunc }) => {
                       Warehouse Name
                     </label>
                     <input
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
                       id="nametrue"
                       placeholder="Warehouse Name"
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -35,8 +47,10 @@ const AddWarehouse = ({ toggleFunc }) => {
                         Close
                       </button>
                       <button
-                        disabled=""
-                        class="bg-gray-700 opacity-70 cursor-not-allowed inline-flex justify-center w-[45%] rounded-md shadow-sm py-2 text-sm font-medium text-white"
+                        onClick={addWareHouse}
+                        class={`bg-gray-700 opacity-70 ${
+                          name.length ? "cursor-pointer" : "cursor-not-allowed"
+                        } inline-flex justify-center w-[45%] rounded-md shadow-sm py-2 text-sm font-medium text-white`}
                       >
                         Add warehouse
                       </button>

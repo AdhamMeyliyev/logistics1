@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Users from "../../../services/users";
+import { toast } from "react-toastify";
 
-const UserEditModal = ({ toggleFunc }) => {
+const UserEditModal = ({ setToggle, userData, userEditData }) => {
+  const [name, setName] = useState(userData.name);
+  const [idNumber, setIdNumber] = useState(userData.idNumber);
+  const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
+  const [password, setPassword] = useState(userData.password);
+
+  const editUser = async () => {
+    const user = { id: userData.userId, name, idNumber, phoneNumber, password };
+    await Users.editUserData(user);
+    toast.success("User updeted");
+    userEditData(user);
+  };
+
   return (
     <div>
       <div class="fixed z-50 inset-0 bg-gray-300 bg-transparent overflow-y-auto h-full w-full lg:px-0 md:px-40 sm:px-10 px-2">
@@ -18,7 +32,8 @@ const UserEditModal = ({ toggleFunc }) => {
                 id="nameCl"
                 class="w-full  border-2 text-black border-gray-200 p-3 rounded-xl outline-none focus:border-blue-400 focus:bg-gray-300 duration-500"
                 placeholder="Enter name"
-                value="Kamol "
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div class="mb-3">
@@ -30,7 +45,8 @@ const UserEditModal = ({ toggleFunc }) => {
                 id="idNumberCl"
                 class="w-full  border-2 text-black border-gray-200 p-3 rounded-xl outline-none focus:border-blue-400 focus:bg-gray-300 duration-500"
                 placeholder="Enter id number"
-                value="Gs136"
+                value={idNumber}
+                onChange={(e) => setIdNumber(e.target.value)}
               />
             </div>
             <div class="mb-3">
@@ -41,7 +57,8 @@ const UserEditModal = ({ toggleFunc }) => {
                 id="phoneNumberCl"
                 class="w-full  border-2 text-black border-gray-200 p-3 rounded-xl outline-none focus:border-blue-400 focus:bg-gray-300 duration-500"
                 placeholder="Enter phone number"
-                value="998946975511"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div class="mb-3">
@@ -54,7 +71,8 @@ const UserEditModal = ({ toggleFunc }) => {
                   type="password"
                   class="w-full  border-2 text-black border-gray-200 p-3 rounded-xl outline-none focus:border-blue-400 focus:bg-gray-300 duration-500"
                   placeholder="Enter password"
-                  value="12345678"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
@@ -66,10 +84,16 @@ const UserEditModal = ({ toggleFunc }) => {
             </div>
             <UserEditModalBtn>
               <div class="flex justify-between mt-7">
-                <button onClick={toggleFunc} type="button" class="btm-close">
+                <button
+                  onClick={() => setToggle(false)}
+                  type="button"
+                  class="btm-close"
+                >
                   Close
                 </button>
-                <button class="btmn">Edit</button>
+                <button onClick={editUser} class="btmn">
+                  Edit
+                </button>
               </div>
             </UserEditModalBtn>
           </div>

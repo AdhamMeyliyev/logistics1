@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/admin/navbar";
 import AddProject from "../../components/Modal/AddProject";
 import ProjectDownloadModal from "../../components/Modal/ProjectDownloadModal";
+import ProjectService from "../../services/project";
 
 const Project = () => {
   const [addModal, setAddModal] = useState(false);
   const [downloadModal, setDownloadModal] = useState(false);
+  const [projects, setProjects] = useState([]);
 
+  const getProjects = async () => {
+    const { data } = await ProjectService.getProjects();
+    console.log(data.body.object);
+    setProjects(data.body.object);
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, []);
   const addModalProject = () => setAddModal(!addModal);
   const downloadModalProject = () => setDownloadModal(!downloadModal);
 
@@ -47,7 +58,7 @@ const Project = () => {
           </div>
           <div className="relative overflow-x-auto  sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+              <thead className="text-xs text-gray-700 uppercase text-center bg-gray-50 ">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     №
@@ -78,14 +89,22 @@ const Project = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <div className="w-full flex justify-center items-center  h-[60vh]">
-                  <img
-                    src="http://gsrlogistic.uz/static/media/empty.21d0ca80f3723feb085f.png"
-                    alt="Empty"
-                    className="d-block w-44"
-                  />
-                </div>
+              <tbody className="text-center">
+                {projects.map((item) => (
+                  <tr>
+                    <th>{item.id}</th>
+                    <th>{item.name}</th>
+                    <th>{item.status}</th>
+                    <th>{item.transport}</th>
+                    <th>{item.date}</th>
+                    <th>{item.productCount}</th>
+                    <th>{item.productTotalKg ? item.productTotalKg : "No"}</th>
+                    <th>
+                      {item.productTotalKlub ? item.productTotalKlub : "No"}
+                    </th>
+                    <th>{item.comment}</th>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -99,16 +118,6 @@ const Project = () => {
               <li className="page-item active" aria-current="page">
                 <a href="#" className="page-link">
                   1
-                </a>
-              </li>
-              <li className="page-item">
-                <a href="#" className="page-link">
-                  2
-                </a>
-              </li>
-              <li className="page-item">
-                <a href="#" className="page-link">
-                  3
                 </a>
               </li>
               <li className="page-item">

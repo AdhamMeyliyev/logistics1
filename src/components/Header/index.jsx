@@ -48,7 +48,7 @@ const Header = () => {
            text-white px-8 rounded-full gap-2"
           to={"/login"}
         >
-          <span className="text-xl sm:hidden">Log In</span>
+          <span className="text-xl">Log In</span>
           <i className="fa-solid fa-arrow-right-to-bracket fa-2xl font-black"></i>
         </Link>
         <h1 className={toggle ? "block" : "hidden"}>hello</h1>

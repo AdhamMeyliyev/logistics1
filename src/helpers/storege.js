@@ -9,6 +9,6 @@ export const getItem = (key) => {
 };
 
 export const removeItem = (key) => {
-  localStorage.removeItem(key);
+  localStorage.clear();
   return;
 };

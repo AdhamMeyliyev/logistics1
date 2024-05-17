@@ -6,8 +6,12 @@ import UserEditModal from "../Modal/UserProfileEditModal";
 const Users = () => {
   const [data, setData] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [userData, setUserData] = useState({});
 
-  const toggleFunc = () => setToggle(!toggle);
+  const userEditData = (data) => {
+    setToggle(!toggle);
+    setUserData(data);
+  };
 
   const getUserData = async () => {
     const data = await User.getUsers();
@@ -16,12 +20,18 @@ const Users = () => {
 
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [userData]);
 
   return (
     <div className="w-full bg-fixed bg-[url('http://gsrlogistic.uz/static/media/back.e41e920c5b0118532b6f.jpg')] h-screen py-10">
       <Navbar />
-      {toggle && <UserEditModal toggleFunc={toggleFunc} />}
+      {toggle && (
+        <UserEditModal
+          setToggle={setToggle}
+          userData={userData}
+          userEditData={userEditData}
+        />
+      )}
       <div className="mt-[80px] flex">
         <div>
           <div className="flex">
@@ -63,7 +73,7 @@ const Users = () => {
               </div>
 
               <button
-                onClick={toggleFunc}
+                onClick={() => userEditData(item)}
                 className="bg-[blue] text-[white] w-[60px] h-[40px] m-7 ml-[90px] rounded-[6px]"
               >
                 Edit

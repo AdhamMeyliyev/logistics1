@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import ProjectService from "../../../services/project";
 
 const AddProject = ({ addModalProject }) => {
+  const [fileId, setFileId] = useState();
+
+  const addFile = async (e) => {
+    const { data } = await ProjectService.addFile(e.target.value);
+    console.log(data);
+  };
+
   return (
     <>
       <Add_Project>
@@ -39,6 +47,7 @@ const AddProject = ({ addModalProject }) => {
                       id="filetrue"
                       type="file"
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 bg-slate-50 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={addFile}
                     />
                     <label
                       for="transporttrue"

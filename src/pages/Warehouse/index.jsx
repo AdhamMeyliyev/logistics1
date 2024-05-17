@@ -1,16 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/admin/navbar";
 import AddWarehouse from "../../components/Modal/AddWarehouseModal";
+import Warehous from "../../services/warehouse";
+import { toast } from "react-toastify";
 
 const Warehouse = () => {
   const [toggle, setToggle] = useState(false);
+  const [warehouse, setWarehouse] = useState([]);
+  const [variable, setVariable] = useState();
+  const [download, setDownload] = useState("");
+
+  const getWarehous = async () => {
+    const { data } = await Warehous.getWarehouse();
+    console.log(data.data.body.object);
+    setWarehouse(data.data.body.object);
+  };
+
+  const deleteWarehous = async (id) => {
+    const { data } = await Warehous.deleteWarehouse(id);
+    console.log(data);
+    setVariable(data);
+    toast.success("Warehous deleted");
+  };
+
+  const downloadWarehouse = async (warehouseData) => {
+    const { data } = await Warehous.downloadWarehouse({
+      woreHouseId: warehouseData.wareHouseId,
+    });
+    setDownload(data.data);
+  };
+
+  useEffect(() => {
+    getWarehous();
+  }, [variable]);
 
   const toggleFunc = () => setToggle(!toggle);
 
   return (
     <>
       <Navbar />
-      {toggle && <AddWarehouse toggleFunc={toggleFunc}/>}
+      {toggle && <AddWarehouse toggleFunc={toggleFunc} />}
       <div
         className="bg-[url('http://gsrlogistic.uz/static/media/back.e41e920c5b0118532b6f.jpg')] w-[100%] 
         px-20 py-10 !bg-cover bg-center bg-fixed"
@@ -67,23 +96,42 @@ const Warehouse = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <div className="w-full flex justify-center items-center  h-[60vh]">
-                    <img
-                      src="http://gsrlogistic.uz/static/media/empty.21d0ca80f3723feb085f.png"
-                      alt="Empty"
-                      className="d-block w-44"
-                    />
-                  </div>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
+                {warehouse.map((item) => (
+                  <tr>
+                    <th>{item.wareHouseId}</th>
+                    <th>{item.name}</th>
+                    <th>{item.totalKub}</th>
+                    <th>{item.productCount}</th>
+                    <th>{item.totalWeight}</th>
+                    <th>
+                      <button className="bg-blue-500 text-white py-2 px-8 rounded-lg">
+                        Edit
+                      </button>
+                    </th>
+                    <th>
+                      <button
+                        onClick={() => deleteWarehous(item.wareHouseId)}
+                        className="bg-red-500 text-white py-2 px-8 rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    </th>
+                    <th className="text-blue-400">
+                      <a href="#">View more</a>
+                    </th>
+                    <th
+                      onClick={() => downloadWarehouse(item)}
+                      className="text-blue-400"
+                    >
+                      <a
+                        href={`${download}.xlsx`}
+                        download={`${download}.xlsx`}
+                      >
+                        Download
+                      </a>
+                    </th>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -97,16 +145,6 @@ const Warehouse = () => {
               <li className="page-item active" aria-current="page">
                 <a href="#" className="page-link">
                   1
-                </a>
-              </li>
-              <li className="page-item">
-                <a href="#" className="page-link">
-                  2
-                </a>
-              </li>
-              <li className="page-item">
-                <a href="#" className="page-link">
-                  3
                 </a>
               </li>
               <li className="page-item">

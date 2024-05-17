@@ -8,6 +8,7 @@ export const StatisticDashboard = () => {
   const getDiagram = async () => {
     const data = await ProductsService.getProductsDiagram();
     setData(data.data.data.body);
+    console.log(data.data.data.body);
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export const StatisticDashboard = () => {
         name: "direct",
         type: "bar",
         barWidth: "80%",
-        data: data,
+        data: [],
       },
     ],
   };
