@@ -15,14 +15,13 @@ const Login = () => {
 
   const handleToggle = () => {
     if (type === "password") {
-      setIcon("eye");
+      setIcon("eye-slash");
       setType("text");
     } else {
-      setIcon("eye-slash");
+      setIcon("eye");
       setType("password");
     }
   };
-  
 
   const user = {
     idNumber,

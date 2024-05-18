@@ -1,13 +1,42 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProjectService from "../../../services/project";
+import { toast } from "react-toastify";
 
 const AddProject = ({ addModalProject }) => {
   const [fileId, setFileId] = useState();
+  const [name, setName] = useState("");
+  const [projectId, setProjectId] = useState("");
+  const [transport, setTransport] = useState("");
+  const [status, setStatus] = useState("");
+  const [comment, setComment] = useState("");
 
   const addFile = async (e) => {
-    const { data } = await ProjectService.addFile(e.target.value);
-    console.log(data);
+    const file = new FormData();
+    file.append("file", document.getElementById("filetrue").files[0]);
+
+    const { data } = await ProjectService.addFile(file);
+    console.log(data.body);
+    setFileId(data.body);
+  };
+
+  const addProject = async () => {
+    try {
+      const projectData = {
+        name,
+        fileId,
+        projectId,
+        transport,
+        status,
+        comment,
+      };
+      await ProjectService.addProject(projectData);
+      toast.success("Project added");
+      addModalProject();
+    } catch (error) {
+      toast.error(error.response.data.error);
+      console.log(error);
+    }
   };
 
   return (
@@ -36,6 +65,8 @@ const AddProject = ({ addModalProject }) => {
                       id="nametrue"
                       placeholder="Project Name"
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <label
                       for="filetrue"
@@ -56,6 +87,8 @@ const AddProject = ({ addModalProject }) => {
                       Transport
                     </label>
                     <select
+                      value={transport}
+                      onChange={(e) => setTransport(e.target.value)}
                       id="transporttrue"
                       class="block w-full p-2 border rounded-md shadow-sm focus:outline-0 mb-4"
                     >
@@ -73,6 +106,8 @@ const AddProject = ({ addModalProject }) => {
                       Project Status
                     </label>
                     <select
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
                       id="productStatustrue"
                       class="block w-full p-2 border rounded-md shadow-sm focus:outline-0 mb-4"
                     >
@@ -98,6 +133,8 @@ const AddProject = ({ addModalProject }) => {
                       Project ID
                     </label>
                     <input
+                      value={projectId}
+                      onChange={(e) => setProjectId(e.target.value)}
                       id="projecttrue"
                       placeholder="Project ID"
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -109,6 +146,8 @@ const AddProject = ({ addModalProject }) => {
                       Comment
                     </label>
                     <textarea
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
                       id="commenttrue"
                       placeholder="Comment"
                       class="shadow appearance-none border rounded w-full py-2.5 px-4 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -121,8 +160,8 @@ const AddProject = ({ addModalProject }) => {
                         Close
                       </button>
                       <button
-                        disabled=""
-                        class="bg-gray-600 cursor-not-allowed opacity-70 inline-flex justify-center w-[45%] rounded-md shadow-sm py-2  text-sm font-medium text-white"
+                        onClick={addProject}
+                        class="bg-gray-700 opacity-70 inline-flex justify-center w-[45%] rounded-md shadow-sm py-2  text-sm font-medium text-white"
                       >
                         Add Project
                       </button>

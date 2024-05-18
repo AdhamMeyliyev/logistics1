@@ -9,15 +9,15 @@ const Project = () => {
   const [downloadModal, setDownloadModal] = useState(false);
   const [projects, setProjects] = useState([]);
 
-  const getProjects = async () => {
+  const getProjects = async function () {
     const { data } = await ProjectService.getProjects();
-    console.log(data.body.object);
     setProjects(data.body.object);
   };
 
   useEffect(() => {
     getProjects();
-  }, []);
+  }, [addModal]);
+
   const addModalProject = () => setAddModal(!addModal);
   const downloadModalProject = () => setDownloadModal(!downloadModal);
 
@@ -54,7 +54,7 @@ const Project = () => {
           </div>
           <div className="flex w-full justify-around sm:justify-between items-center">
             <span className="hidden sm:block"></span>
-            <span className="me-5 pt-1.5 float-end">Current Page: 0</span>
+            <span className="me-5 pt-1.5 float-end">Current Page: 1</span>
           </div>
           <div className="relative overflow-x-auto  sm:rounded-lg">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">

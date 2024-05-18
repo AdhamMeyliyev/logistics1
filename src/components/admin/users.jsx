@@ -20,7 +20,7 @@ const Users = () => {
 
   useEffect(() => {
     getUserData();
-  }, [userData]);
+  }, [toggle]);
 
   return (
     <div className="w-full bg-fixed bg-[url('http://gsrlogistic.uz/static/media/back.e41e920c5b0118532b6f.jpg')] h-screen py-10">
@@ -52,35 +52,35 @@ const Users = () => {
               Manager
             </button>
           </div>
-          <br />
-          {data.map((item, i) => (
-            <div className="w-[740px] h-[100px] bg-[#cce7f4] ml-[40px] rounded-[8px] flex ">
-              <div>
-                <ul className="flex gap-24 text-[14px] text-[gray] p-2">
-                  <li>Id Number</li>
-                  <li>Name</li>
-                  <li>Phone Number</li>
-                  <li>Password</li>
-                </ul>
-                <ul className="text-[14px] text-gray-500 p-2">
-                  <li className="flex gap-24 p-2" key={i}>
-                    <h3>{item.name}</h3>
-                    <p>{item.idNumber}</p>
-                    <p>{item.phoneNumber}</p>
-                    <p>{item.password}</p>
-                  </li>
-                </ul>
-              </div>
+          <div className="flex flex-col gap-5 mt-12">
+            {data.map((item, i) => (
+              <div className="w-[740px] h-[100px] bg-[#cce7f4] ml-[40px] rounded-[8px] flex ">
+                <div>
+                  <ul className="flex gap-24 text-[14px] text-[gray] p-2">
+                    <li>Id Number</li>
+                    <li>Name</li>
+                    <li>Phone Number</li>
+                    <li>Password</li>
+                  </ul>
+                  <ul className="text-[14px] text-gray-500 p-2">
+                    <li className="flex gap-24 p-2" key={i}>
+                      <h3>{item.name}</h3>
+                      <p>{item.idNumber}</p>
+                      <p>{item.phoneNumber}</p>
+                      <p>{item.password}</p>
+                    </li>
+                  </ul>
+                </div>
 
-              <button
-                onClick={() => userEditData(item)}
-                className="bg-[blue] text-[white] w-[60px] h-[40px] m-7 ml-[90px] rounded-[6px]"
-              >
-                Edit
-              </button>
-            </div>
-          ))}
-          <br />
+                <button
+                  onClick={() => userEditData(item)}
+                  className="bg-[blue] text-[white] w-[60px] h-[40px] m-7 ml-[90px] rounded-[6px]"
+                >
+                  Edit
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="w-[800px]">
           <h2 className="ml-[430px] mt-[30px] text-[24px]">New User</h2>

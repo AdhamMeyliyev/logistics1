@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductsService from "../../services/products";
 import { Pagination } from "flowbite-react";
 import ModalImg from "./modal-img";
+import { toast } from "react-toastify";
 
 const Table = () => {
   const [products, setProducts] = useState([]);
@@ -15,12 +16,23 @@ const Table = () => {
   const onPageChange = (page) => setCurrentPage(page);
 
   const getProducts = async () => {
-    setIsloading(true);
-    const data = await ProductsService.getProducts(currentPage - 1);
-    setProducts(data.data.data.body.object);
-    setMessage(data.data.data.message);
-    setTotalPage(data.data.data.body.totalPage);
-    setIsloading(false);
+    try {
+      setIsloading(true);
+      const { data } = await ProductsService.getProducts(currentPage - 1);
+      setProducts(data.data.body.object);
+      setMessage("List Empaty");
+      setTotalPage(data.data.body.totalPage);
+      setIsloading(false);
+    } catch (error) {
+      toast.error(error.response.data.error);
+      onPageChange(0);
+      setIsloading(false);
+    }
+  };
+
+  const serchProduct = async (e) => {
+    const { data } = await ProductsService.searchProduct(e.target.value);
+    console.log(data);
   };
 
   const handleClick = (id) => {
@@ -35,6 +47,12 @@ const Table = () => {
   return (
     <div className="relative">
       <ModalImg toggle={toggle} setToggle={setToggle} imgUrl={img} />
+      <input
+        onChange={serchProduct}
+        placeholder="🔍 Product name"
+        className="outline-none border px-5 w-2/6 h-8 rounded"
+        type="search"
+      />
       <p className="mt-6">Current Page: {currentPage}</p>
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-[#e1e8f0]">
@@ -66,7 +84,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {products ? (
+          {products.length ? (
             products &&
             products.map((item) => (
               <tr key={item.id} className="bg-white border-b">

@@ -9,6 +9,10 @@ const ProjectService = {
     const { data } = await axios.post("/attachment/file", file);
     return { data };
   },
+  addProject: async (projectData) => {
+    const { data } = await axios.post("/project", projectData);
+    return { data };
+  },
 };
 
 export default ProjectService;

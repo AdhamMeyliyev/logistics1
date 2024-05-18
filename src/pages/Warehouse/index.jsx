@@ -32,7 +32,7 @@ const Warehouse = () => {
 
   useEffect(() => {
     getWarehous();
-  }, [variable]);
+  }, [toggle, variable]);
 
   const toggleFunc = () => setToggle(!toggle);
 

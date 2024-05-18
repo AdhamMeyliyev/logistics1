@@ -18,11 +18,6 @@ const Admin = () => {
       </div>
       <div className="w-full px-10 mt-20">
         <div className="bg-white/50 p-5 rounded-lg">
-          <input
-            placeholder="🔍 Product name"
-            className="outline-none border-none px-5 w-2/6 h-8 rounded"
-            type="search"
-          />
           <Table />
         </div>
       </div>
